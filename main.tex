@@ -2,6 +2,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{tabularx}
 \usepackage{booktabs}
+\usepackage{hyperref}
 
 
 \title{Python Tutorial}
@@ -16,40 +17,84 @@
 
 \subsection{Python compared to R}
 
-\begin{itemize}
-    \item R was developed by statisticians for statisticians.
-    \item 
-    \item https://cran.r-project.org/ 15.330
-    \item https://pypi.org/ 216.195
-\end{itemize}
-
-\begin{table}
+\begin{table}[h]
 \begin{tabularx}{\linewidth}{>{\parskip1ex}X@{\kern4\tabcolsep}>{\parskip1ex}X}
 \toprule
 \hfil\bfseries Python
 &
 \hfil\bfseries R
-\\\cmidrule(r{3\tabcolsep}){1-1}\cmidrule(l{-\tabcolsep}){3-2}
+\\\cmidrule(r{3\tabcolsep}){1-1}\cmidrule(l{-\tabcolsep}){2-2}
 
 %% PROS, seperated by empty line or \par
-Was started to teach people about programming.
+Was deveoped as teaching tool for programming.
+
+Is a general purpose scripting language.
+
+Is itself programmed in C and Python.
+
+Main package repository is \href{https://pypi.org/}{pypi} with 216.195 packages.
+
+Has a \href{https://github.com/mre/awesome-static-analysis\#python}{large library}
+of software that helps developers write good code.
+
+Has \href{https://www.python.org/dev/peps/pep-0008/}{official best practices}
+to help in writing more comprehensible code.
 
 &
 
 %% CONS, seperated by empty line or \par
+Was developed by statisticians for statisticians.
 
+Is a domain specific scripting language.
+
+Is itself programmed in C, Fortran and R.
+
+Main package repository is \href{https://cran.r-project.org/}{CRAN} with 15.330 packages.
+
+Has a \href{https://github.com/mre/awesome-static-analysis\#r}{small library}
+of software that helps developers write good code.
+
+Has no consensus on style or best practices.
 
 \\\bottomrule
 \end{tabularx}
-\caption{Pros and cons of ...}
 \end{table}
 
-
-
 \section{Pythonsyntax}
+
+
+
 \section{Statements and Expressions}
 \section{Decisions and Loops}
 \section{Data Types, Sequences, Sets and Dictionaries}
+
+\subsection{Build-in Types}
+
+Python has extensive \href{https://docs.python.org/3/library/stdtypes.html}{documentation}
+on their build-in types. 
+The most basic types you will most commonly come in contact with:
+
+
+\begin{itemize}
+    \item integer
+    \item float
+    \item boolean
+    \item string
+\end{itemize}
+
+These are immutable, i.e. their value cannot be changed.
+
+%http://pythontutor.com/visualize.html#code=NUMBER%20%3D%202%0AADD_RESULT%20%3D%20NUMBER%20%2B%202%0ADIV_RESULT%20%3D%20ADD_RESULT%20/%20NUMBER%0AMULT_RESULT%20%3D%20DIV_RESULT%20*%203%0AMODULO_RESULT%20%3D%20%28MULT_RESULT%20%2B%201%29%20%25%202%0A_STRING%20%3D%20%22HELLO%20WORLD%22%0A_LIST%20%3D%20list%28%29%0A_LIST2%20%3D%20%5BNUMBER,%20_STRING%5D%0A_LIST.append%28NUMBER%29%0A_LIST.append%28ADD_RESULT%29%0A_LIST.append%28_LIST2%29%0A_LIST2%5B0%5D%20%3D%20ADD_RESULT%0A_TUPLE%20%3D%20%281,2,3%29%0A_LIST%5B2%5D%20%3D%20_TUPLE%0A_TUPLE%20%3D%20_TUPLE%20%2B%20_TUPLE%0A_LIST%5B2%5D%20%3D%20_LIST2%0A_LIST2%20%3D%20_LIST2.append%28_LIST2%29&cumulative=false&curInstr=17&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false
+
+\subsection{Lists}
+
+As the name suggests, this is a list of "things".
+It can contain everything that can also be assigned to a variable.
+
+\subsubsection{Slicing}
+
+\subsubsection{List comprehension}
+
 \section{Functions}
 \section{Generators and Iterators}
 \section{Classes}
