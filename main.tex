@@ -3,7 +3,41 @@
 \usepackage{tabularx}
 \usepackage{booktabs}
 \usepackage{hyperref}
+\usepackage{listings}
 
+
+%Style
+\usepackage{xcolor}
+ 
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+ 
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+ 
+\lstset{style=mystyle}
+%Style
+
+
+\setlength{\parindent}{0pt}
 
 \title{Python Tutorial}
 \author{Dominique Hansen}
@@ -40,6 +74,8 @@ of software that helps developers write good code.
 Has \href{https://www.python.org/dev/peps/pep-0008/}{official best practices}
 to help in writing more comprehensible code.
 
+Has a unittesting library in its own standard library.
+
 &
 
 %% CONS, seperated by empty line or \par
@@ -56,6 +92,8 @@ of software that helps developers write good code.
 
 Has no consensus on style or best practices.
 
+Has third party libraries for unittesting.
+
 \\\bottomrule
 \end{tabularx}
 \end{table}
@@ -68,12 +106,15 @@ Has no consensus on style or best practices.
 \section{Decisions and Loops}
 \section{Data Types, Sequences, Sets and Dictionaries}
 
+The type of a variable is determined by the python interpreter at the time
+of execution.
+The interpreter can convert values to different types when it is necessary. 
+
 \subsection{Build-in Types}
 
 Python has extensive \href{https://docs.python.org/3/library/stdtypes.html}{documentation}
 on their build-in types. 
 The most basic types you will most commonly come in contact with:
-
 
 \begin{itemize}
     \item integer
@@ -83,6 +124,8 @@ The most basic types you will most commonly come in contact with:
 \end{itemize}
 
 These are immutable, i.e. their value cannot be changed.
+Operations performed on them always create completely new "thing".
+
 
 %http://pythontutor.com/visualize.html#code=NUMBER%20%3D%202%0AADD_RESULT%20%3D%20NUMBER%20%2B%202%0ADIV_RESULT%20%3D%20ADD_RESULT%20/%20NUMBER%0AMULT_RESULT%20%3D%20DIV_RESULT%20*%203%0AMODULO_RESULT%20%3D%20%28MULT_RESULT%20%2B%201%29%20%25%202%0A_STRING%20%3D%20%22HELLO%20WORLD%22%0A_LIST%20%3D%20list%28%29%0A_LIST2%20%3D%20%5BNUMBER,%20_STRING%5D%0A_LIST.append%28NUMBER%29%0A_LIST.append%28ADD_RESULT%29%0A_LIST.append%28_LIST2%29%0A_LIST2%5B0%5D%20%3D%20ADD_RESULT%0A_TUPLE%20%3D%20%281,2,3%29%0A_LIST%5B2%5D%20%3D%20_TUPLE%0A_TUPLE%20%3D%20_TUPLE%20%2B%20_TUPLE%0A_LIST%5B2%5D%20%3D%20_LIST2%0A_LIST2%20%3D%20_LIST2.append%28_LIST2%29&cumulative=false&curInstr=17&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false
 
@@ -90,8 +133,53 @@ These are immutable, i.e. their value cannot be changed.
 
 As the name suggests, this is a list of "things".
 It can contain everything that can also be assigned to a variable.
+Lists are mutable. They can be changed.
+Elements can be added or removed from a list after it has been created.
+
+Lists can be created empty:
+
+\begin{lstlisting}[language=Python]
+an_empty_list = list()
+another_empty_list = []
+\end{lstlisting}
+
+and then be filled:
+
+\begin{lstlisting}[language=Python]
+list_for_content = an_empty_list
+list_for_content.append(1)
+# The name of an_empty_list is now a lie.
+list_for_content.append(2)
+list_for_content.append(3)
+\end{lstlisting}
+
+It can also be created with content:
+
+\begin{lstlisting}[language=Python]
+a_list_with_content = [1 ,2 ,3]
+\end{lstlisting}
+
+Elements of a list can be accessed like this:
+
+\begin{lstlisting}[language=Python]
+an_empty_list[0]
+an_empty_list[2]
+\end{lstlisting}
+
+The index of lists in Python starts at 0 meaning that
+$an\_empty\_list[0]$ will be $1$ and $an\_empty\_list[2]$
+will be 3.
+
+\href{http://pythontutor.com/visualize.html\#code=an\_empty\_list\%20\%3D\%20list\%28\%29\%0Aanother\_empty\_list\%20\%3D\%20\%5B\%5D\%0A\%0Alist\_for\_content\%20\%3D\%20an\_empty\_list\%0Alist\_for\_content.append\%281\%29\%0A\%23\%20The\%20name\%20of\%20an\_empty\_list\%20is\%20now\%20a\%20lie.\%0Alist\_for\_content.append\%282\%29\%0Alist\_for\_content.append\%283\%29\%0A\%0Aa\_list\_with\_content\%20\%3D\%20\%5B1\%20,2\%20,3\%5D\%0A\%0Aprint\%28an\_empty\_list\%29\%0Aprint\%28another\_empty\_list\%29\%0Aprint\%28list\_for\_content\%29\%0Aprint\%28a\_list\_with\_content\%29\%0A\%0Aprint\%28an\_empty\_list\%5B0\%5D\%29\%0Aprint\%28an\_empty\_list\%5B2\%5D\%29\&cumulative=false\&curInstr=13\&heapPrimitives=nevernest\&mode=display\&origin=opt-frontend.js\&py=3\&rawInputLstJSON=\%5B\%5D\&textReferences=false}{Here is an executable example.}
+
+
+%([&%$#_{}~^\\]) \\\\\\1
+
+%http://pythontutor.com/visualize.html#code=an_empty_list%20%3D%20list%28%29%0Aanother_empty_list%20%3D%20%5B%5D%0A%0Alist_for_content%20%3D%20an_empty_list%0Alist_for_content.append%281%29%0A%23%20an_empty_list%20name%20is%20now%20a%20lie%0Alist_for_content.append%282%29%0Alist_for_content.append%283%29%0A%0Aprint%28list_for_content%29%0Aprint%28an_empty_list%29&cumulative=false&curInstr=8&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false
 
 \subsubsection{Slicing}
+
+
 
 \subsubsection{List comprehension}
 
