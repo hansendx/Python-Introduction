@@ -100,10 +100,119 @@ Has third party libraries for unittesting.
 
 \section{Pythonsyntax}
 
+Most languages use visible characters to define a
+\href{https://en.wikipedia.org/wiki/Block_(programming)}{code block}.
+
+A loop in R can look like this:
+
+\begin{lstlisting}[language=R]
+for(number in 1:10) {
+print(number)
+}
+\end{lstlisting}
+
+And the same loop can also look like this:
+
+\begin{lstlisting}[language=R]
+for(number in 1:10){print(number)}
+\end{lstlisting}
+
+Or like this:
+
+\begin{lstlisting}[language=R]
+for(number in 1:10) {
+    print(number)
+}
+\end{lstlisting}
+
+
+The whitespace in the third example carries no syntactical meaning.
+But this kind of indention is used by many programmers to make their
+code more readable.
+It makes it easier for people to determine the block a line of code belongs to.
+Python on the other hand uses whitespace explicitly to denote a block.
+The same loop in python would look like this:
+
+\begin{lstlisting}[language=Python]
+for number in range(1, 11):
+    print(number)
+\end{lstlisting}
+
+Python forces its users to write cleaner looking code through its use of whitespace
+as syntactical characters.
+As a teaching language it was created with readability of the code in mind.
+
+Python does not care if you use spaces or tab characters as long as it is consistent.
+It also does not care how many spaces or tabs are used as long as it is consistent.
+As with many scripting languages Python leaves some freedom to its users.
+It is however strongly recommended\footnote{
+    Python has a Style Guide
+\href{https://www.python.org/dev/peps/pep-0008/}{PEP 8}
+}
+to limit oneself to the use of spaces
+and exactly 4 spaces per indentation level.
+Adhering to the style guide makes it easier for others (yourself in the future included)
+to reuse the code.
+
+
 
 
 \section{Statements and Expressions}
 \section{Decisions and Loops}
+
+\subsection{if, elif, else}
+
+Often times we have to handle data differently during computation depending on
+the makeup of the data.
+Or we have to decide to do certain things if our data is a certain way.
+
+To do this we can make use of the $if$, $if\cdots else$ and $if\cdots elif$
+statements:
+
+\begin{lstlisting}[language=Python]
+if a_variable == 1:
+    print("It is one.")
+elif a_variable == 2:
+    print("It is one.")
+else:
+    print("It is too much man.")
+\end{lstlisting}
+
+If the statement at $if$ evaluates to True "This is one." will be printed.
+If it evaluates to False, the $elif$ statement is checked.
+An $if$ statement can be followed by an arbitrary amount of $elif$ statements.
+Only the one that evaluates to True gets its block executed, all statements
+after that will be skipped.
+The $else$ block will only be executed if all other checks evaluate to False.
+
+\subsubsection{What is True?}
+
+Obviosly boolean $True$ and $False$ values evaluate to what they say.
+But in python there are also "truthy" values.
+These values are not of the type boolean but will be treated as such in the right context:
+
+\begin{lstlisting}[language=Python]
+a_list = []
+
+if a_list:
+    print("The first element is: " + a_list[0])
+else:
+    print("The list is empty.")
+\end{lstlisting}
+
+\begin{itemize}
+    \item An empty list, dictionary, set, string or a 0 will evaluate to False in a boolean context.
+    \item The special $None$ value will also evaluate to False. 
+    \item A list, dictionary or set with at least one element will evaluate to True.
+    \item 
+\end{itemize}
+All numbers other than 0 and a string with at least one character will also evaluate to True.
+
+
+
+
+
+
 \section{Data Types, Sequences, Sets and Dictionaries}
 
 The type of a variable is determined by the python interpreter at the time
@@ -162,15 +271,17 @@ a_list_with_content = [1 ,2 ,3]
 Elements of a list can be accessed like this:
 
 \begin{lstlisting}[language=Python]
-an_empty_list[0]
-an_empty_list[2]
+a_list_with_content[0]
+a_list_with_content[2]
 \end{lstlisting}
 
-The index of lists in Python starts at 0 meaning that
+Indices in Python start at 0, meaning that
 $an\_empty\_list[0]$ will be $1$ and $an\_empty\_list[2]$
 will be 3.
 
-\href{http://pythontutor.com/visualize.html\#code=an\_empty\_list\%20\%3D\%20list\%28\%29\%0Aanother\_empty\_list\%20\%3D\%20\%5B\%5D\%0A\%0Alist\_for\_content\%20\%3D\%20an\_empty\_list\%0Alist\_for\_content.append\%281\%29\%0A\%23\%20The\%20name\%20of\%20an\_empty\_list\%20is\%20now\%20a\%20lie.\%0Alist\_for\_content.append\%282\%29\%0Alist\_for\_content.append\%283\%29\%0A\%0Aa\_list\_with\_content\%20\%3D\%20\%5B1\%20,2\%20,3\%5D\%0A\%0Aprint\%28an\_empty\_list\%29\%0Aprint\%28another\_empty\_list\%29\%0Aprint\%28list\_for\_content\%29\%0Aprint\%28a\_list\_with\_content\%29\%0A\%0Aprint\%28an\_empty\_list\%5B0\%5D\%29\%0Aprint\%28an\_empty\_list\%5B2\%5D\%29\&cumulative=false\&curInstr=13\&heapPrimitives=nevernest\&mode=display\&origin=opt-frontend.js\&py=3\&rawInputLstJSON=\%5B\%5D\&textReferences=false}{Here is an executable example.}
+\href{
+    http://pythontutor.com/visualize.html\#code=an\_empty\_list\%20\%3D\%20list\%28\%29\%0Aanother\_empty\_list\%20\%3D\%20\%5B\%5D\%0A\%0Alist\_for\_content\%20\%3D\%20an\_empty\_list\%0Alist\_for\_content.append\%281\%29\%0A\%23\%20The\%20name\%20of\%20an\_empty\_list\%20is\%20now\%20a\%20lie.\%0Alist\_for\_content.append\%282\%29\%0Alist\_for\_content.append\%283\%29\%0A\%0Aa\_list\_with\_content\%20\%3D\%20\%5B1\%20,2\%20,3\%5D\%0A\%0Aprint\%28an\_empty\_list\%29\%0Aprint\%28another\_empty\_list\%29\%0Aprint\%28list\_for\_content\%29\%0Aprint\%28a\_list\_with\_content\%29\%0A\%0Aprint\%28an\_empty\_list\%5B0\%5D\%29\%0Aprint\%28an\_empty\_list\%5B2\%5D\%29\&cumulative=false\&curInstr=13\&heapPrimitives=nevernest\&mode=display\&origin=opt-frontend.js\&py=3\&rawInputLstJSON=\%5B\%5D\&textReferences=false
+    }{Here is an executable example.}
 
 
 %([&%$#_{}~^\\]) \\\\\\1
@@ -179,12 +290,29 @@ will be 3.
 
 \subsubsection{Slicing}
 
+Slicing gives you an easy and comprehensible way to get a part of a list.
+Slicing a list looks similar to addressing a single element:
+
+\begin{lstlisting}[language=Python]
+# The range() function is useful for the creation of numerical sequences.
+n_up_to_a_hundred = list(range(1,101))
+n_up_to_50 = n_up_to_a_hundred[:50]
+multiples_of_two_up_to_50 = n_up_to_a_hundred[1:50:2]
+\end{lstlisting}
+The numbers between the brackets provide [first index:last index:step]
 
 
 \subsubsection{List comprehension}
 
+List comprehension, somewhat like slicing, lets us create a list from another list.
+Slicing only allows us to select elements from a list by index.
+List comprehension is far more powerful.
+
+
+
 \section{Functions}
 \section{Generators and Iterators}
+\label{generators}
 \section{Classes}
 \section{Objects}
 \section{Dealing with errors Error}
