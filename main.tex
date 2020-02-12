@@ -38,6 +38,7 @@
 
 
 \setlength{\parindent}{0pt}
+\setcounter{section}{-1}
 
 \title{Python Tutorial}
 \author{Dominique Hansen}
@@ -46,6 +47,97 @@
 \begin{document}
 
 \maketitle
+
+\section{Getting Started}
+
+\subsection{Installing Python}
+
+\subsubsection{Linux}
+\label{linux_python_install}
+Many linux systems have Python already installed.
+Older systems might have Python2 alongside Python3.
+Refrain from using Python2 since it is not fully compatible with Python3
+and reached its end of life with the start of 2020.
+
+On debian based systems Python3 can be installed with apt in the terminal:
+
+\begin{lstlisting}[language=Bash]
+sudo apt-get install python3.8
+# Or just 3 if 3.8 is not available for you
+sudo apt-get install python3
+\end{lstlisting}
+
+\subsubsection{Windows 10}
+Windows 10 supports running linux inside itself with the
+"Windows Subsystem for Linux". \footnote{\href{https://docs.microsoft.com/en-us/windows/wsl/install-win10}{Installation Guide}}
+If you choose a debian based subsystem like ubuntu, you can use the
+installation command from the section \ref{linux_python_install}.
+
+\subsection{Windows 7}
+If still have a Windows 7 installion on yout personal PC you should upgrade to Windows 10.
+Windows 7 is no longer save to work in.
+If you have to work with a Windows 7 systems on your work station at the DIW you can use conda.
+You can get an installer for anaconda \href{https://www.anaconda.com/distribution/#download-section}{here}.
+Anaconda can be installed without Admin privileges if you only install it for your user.
+Install the full anaconda distribution not miniconda.
+
+
+
+
+\subsection{Your Development Environment}
+
+Probably the most popular editors for python developers are
+\href{https://code.visualstudio.com/}{Visual Studio Code}
+and \href{https://www.jetbrains.com/pycharm/}{PyCharm}.
+PyCharm is specifically geared towards development in Python.
+VSCode was created for web development but it also has a wide array of
+extensions that allow you to work with other languages.
+The Python extension is very mature and actively developed by microsoft.
+VSCode is completely open source whereas PyCharm is partially open source, with
+a free and a commercial version.
+
+\subsubsection{VSCode Setup}
+
+Get an installer for your system at
+\href{https://code.visualstudio.com/}{code.visualstudio.com}.
+Once installed open VSCode and install the Python extension.
+\begin{itemize}
+    \item Extensions can be opened via the toolbar on the left or with Ctrl+Shift+x.
+    \item Search for Python in the extensions, first result should be the correct one.
+    \item Open settings. Shortcut here is Ctrl+,
+    \item On Windows search the settings for the entry
+    "Python: Conda Path" and set it for your system.\footnote{Will Probably be at\\
+D:{\textbackslash
+}Users{\textbackslash
+}YOURUSERNAME{\textbackslash
+}AppData{\textbackslash
+}Local{\textbackslash
+}Continuum{\textbackslash
+}anaconda3{\textbackslash
+}Scripts{\textbackslash
+}conda.exe
+        }
+    \item Enable all linters and style checker, that you like.
+\end{itemize}
+
+\subsubsection{Linters, Stylecheckers and Formatters}
+
+A Linter is a program, that "looks" at your code and warns you about potential
+problems with it. These Problems include:
+\begin{itemize}
+    \item Not adhering to a styleguide.
+    \item Not adhering to conventions.
+    \item Your code contains structures that are commonly associated with errors.
+    \item Your code contains structures that make it harder to maintain.
+    \item Your code contains actual errors, like syntax errors, that would crash it on execution.
+\end{itemize}
+
+Popular linters for Python are \href{https://github.com/PyCQA/pylint}{pylint} and
+\href{https://github.com/PyCQA/pyflakes}{pyflakes}.
+Pylint is more feature rich than pyflakes.
+Some might find its features overwhelming and its problem finding too nit-picky.
+
+
 
 \section{Python compared to other languages}
 
@@ -187,8 +279,8 @@ The $else$ block will only be executed if all other checks evaluate to False.
 
 \subsubsection{What is True?}
 
-Obviosly boolean $True$ and $False$ values evaluate to what they say.
-But in python there are also "truthy" values.
+Obviously boolean $True$ and $False$ values evaluate to what they say.
+But in python there are also "Truthy" and "Falsy" values.
 These values are not of the type boolean but will be treated as such in the right context:
 
 \begin{lstlisting}[language=Python]
@@ -204,9 +296,8 @@ else:
     \item An empty list, dictionary, set, string or a 0 will evaluate to False in a boolean context.
     \item The special $None$ value will also evaluate to False. 
     \item A list, dictionary or set with at least one element will evaluate to True.
-    \item 
+    \item All numbers other than 0 and a string with at least one character will also evaluate to True.
 \end{itemize}
-All numbers other than 0 and a string with at least one character will also evaluate to True.
 
 
 
@@ -311,11 +402,16 @@ List comprehension is far more powerful.
 
 
 \section{Functions}
+
+A function is a code structure, that accepts some form of input, does something
+and returns a value.
+
+
+
 \section{Generators and Iterators}
 \label{generators}
-\section{Classes}
-\section{Objects}
-\section{Dealing with errors Error}
+\section{Classes and Objects}
+\section{Dealing with Errors}
 \section{Input and Output}
 \section{Modules and Packages}
 \section{Scope}
