@@ -4,6 +4,9 @@
 \usepackage{booktabs}
 \usepackage{hyperref}
 \usepackage{listings}
+\usepackage{fancyvrb}
+
+\VerbatimFootnotes{}
 
 
 %Style
@@ -52,8 +55,7 @@
 
 \subsection{Installing Python}
 
-\subsubsection{Linux}
-\label{linux_python_install}
+\subsubsection{Linux}\label{linux_python_install}
 Many linux systems have Python already installed.
 Older systems might have Python2 alongside Python3.
 Refrain from using Python2 since it is not fully compatible with Python3
@@ -69,9 +71,9 @@ sudo apt-get install python3
 
 \subsubsection{Windows 10}
 Windows 10 supports running linux inside itself with the
-"Windows Subsystem for Linux". \footnote{\href{https://docs.microsoft.com/en-us/windows/wsl/install-win10}{Installation Guide}}
+``Windows Subsystem for Linux''.\footnote{\href{https://docs.microsoft.com/en-us/windows/wsl/install-win10}{Installation Guide}}
 If you choose a debian based subsystem like ubuntu, you can use the
-installation command from the section \ref{linux_python_install}.
+installation command from the section{~}\ref{linux_python_install}.
 
 \subsection{Windows 7}
 If still have a Windows 7 installion on yout personal PC you should upgrade to Windows 10.
@@ -106,26 +108,20 @@ Once installed open VSCode and install the Python extension.
     \item Search for Python in the extensions, first result should be the correct one.
     \item Open settings. Shortcut here is Ctrl+,
     \item On Windows search the settings for the entry
-    "Python: Conda Path" and set it for your system.\footnote{Will Probably be at\\
-D:{\textbackslash
-}Users{\textbackslash
-}YOURUSERNAME{\textbackslash
-}AppData{\textbackslash
-}Local{\textbackslash
-}Continuum{\textbackslash
-}anaconda3{\textbackslash
-}Scripts{\textbackslash
-}conda.exe
-        }
+    ``Python: Conda Path'' and set it for your system.\footnote{Will Probably be at\\ \
+\verb!D:\Users\YOURUSERNAME\AppData\Local\Continuum\anaconda3\Scripts\conda.exe! }
+    \item Onm Linux the Path to Python will probably already be set correctly.
     \item Enable all linters and style checker, that you like.
+    \item VSCode will help you with the installation of linters and style checkers,
+          if the Python or Conda path ist set correctly.
 \end{itemize}
 
 \subsubsection{Linters, Stylecheckers and Formatters}
 
-A Linter is a program, that "looks" at your code and warns you about potential
+A Linter is a program, that ``looks'' at your code and warns you about potential
 problems with it. These Problems include:
 \begin{itemize}
-    \item Not adhering to a styleguide.
+    \item Not adhering to a style guide.
     \item Not adhering to conventions.
     \item Your code contains structures that are commonly associated with errors.
     \item Your code contains structures that make it harder to maintain.
@@ -135,9 +131,26 @@ problems with it. These Problems include:
 Popular linters for Python are \href{https://github.com/PyCQA/pylint}{pylint} and
 \href{https://github.com/PyCQA/pyflakes}{pyflakes}.
 Pylint is more feature rich than pyflakes.
-Some might find its features overwhelming and its problem finding too nit-picky.
+The ammount of things Pylint checks can be overwhelming but the checks can be limited
+via configuration files.
 
+A popular linter specialized on code style, a style checker,
+is \href{https://github.com/PyCQA/pycodestyle}{pycodestyle}.
+It checks if your code adheres to the Python
+\href{https://www.python.org/dev/peps/pep-0008/}{PEP 8} style guide.
 
+Many problems such linters might find, can potentially be fixed automatically.
+Black is a formatter, that can fix many style guide violations automatically.
+It is an opinionated formatter, meaning that it is not very configurable by design.
+Black also tries to format your code in a way to improve git diffs.
+
+There is no ``one'' way to format your code.
+PEP 8 was developed by people who were highly involved and experienced in Python.
+It is however not the be-all and end-all on how to style your code.
+Not adhering to it does not make your code ``wrong''.
+But it is a piece of shared knowledge between many Python programmers.
+Adhering to and knowing the conventions makes it easier for you to understand
+the code of others and your own code after you did not look at it for a long time.
 
 \section{Python compared to other languages}
 
@@ -270,7 +283,7 @@ else:
     print("It is too much man.")
 \end{lstlisting}
 
-If the statement at $if$ evaluates to True "This is one." will be printed.
+If the statement at $if$ evaluates to True ``This is one.'' will be printed.
 If it evaluates to False, the $elif$ statement is checked.
 An $if$ statement can be followed by an arbitrary amount of $elif$ statements.
 Only the one that evaluates to True gets its block executed, all statements
@@ -280,7 +293,7 @@ The $else$ block will only be executed if all other checks evaluate to False.
 \subsubsection{What is True?}
 
 Obviously boolean $True$ and $False$ values evaluate to what they say.
-But in python there are also "Truthy" and "Falsy" values.
+But in python there are also ``Truthy'' and ``Falsy'' values.
 These values are not of the type boolean but will be treated as such in the right context:
 
 \begin{lstlisting}[language=Python]
@@ -323,15 +336,16 @@ The most basic types you will most commonly come in contact with:
     \item string
 \end{itemize}
 
-These are immutable, i.e. their value cannot be changed.
-Operations performed on them always create completely new "thing".
+These are immutable, i.e.\@ their value cannot be changed.
+Operations performed on them always create completely new ``thing''.
+In contrast to them stand mutable types, which can be changed.
 
 
 %http://pythontutor.com/visualize.html#code=NUMBER%20%3D%202%0AADD_RESULT%20%3D%20NUMBER%20%2B%202%0ADIV_RESULT%20%3D%20ADD_RESULT%20/%20NUMBER%0AMULT_RESULT%20%3D%20DIV_RESULT%20*%203%0AMODULO_RESULT%20%3D%20%28MULT_RESULT%20%2B%201%29%20%25%202%0A_STRING%20%3D%20%22HELLO%20WORLD%22%0A_LIST%20%3D%20list%28%29%0A_LIST2%20%3D%20%5BNUMBER,%20_STRING%5D%0A_LIST.append%28NUMBER%29%0A_LIST.append%28ADD_RESULT%29%0A_LIST.append%28_LIST2%29%0A_LIST2%5B0%5D%20%3D%20ADD_RESULT%0A_TUPLE%20%3D%20%281,2,3%29%0A_LIST%5B2%5D%20%3D%20_TUPLE%0A_TUPLE%20%3D%20_TUPLE%20%2B%20_TUPLE%0A_LIST%5B2%5D%20%3D%20_LIST2%0A_LIST2%20%3D%20_LIST2.append%28_LIST2%29&cumulative=false&curInstr=17&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false
 
-\subsection{Lists}
+\subsection{Lists}\label{lists}
 
-As the name suggests, this is a list of "things".
+As the name suggests, this is a list of ``things''.
 It can contain everything that can also be assigned to a variable.
 Lists are mutable. They can be changed.
 Elements can be added or removed from a list after it has been created.
@@ -374,6 +388,15 @@ will be 3.
     http://pythontutor.com/visualize.html\#code=an\_empty\_list\%20\%3D\%20list\%28\%29\%0Aanother\_empty\_list\%20\%3D\%20\%5B\%5D\%0A\%0Alist\_for\_content\%20\%3D\%20an\_empty\_list\%0Alist\_for\_content.append\%281\%29\%0A\%23\%20The\%20name\%20of\%20an\_empty\_list\%20is\%20now\%20a\%20lie.\%0Alist\_for\_content.append\%282\%29\%0Alist\_for\_content.append\%283\%29\%0A\%0Aa\_list\_with\_content\%20\%3D\%20\%5B1\%20,2\%20,3\%5D\%0A\%0Aprint\%28an\_empty\_list\%29\%0Aprint\%28another\_empty\_list\%29\%0Aprint\%28list\_for\_content\%29\%0Aprint\%28a\_list\_with\_content\%29\%0A\%0Aprint\%28an\_empty\_list\%5B0\%5D\%29\%0Aprint\%28an\_empty\_list\%5B2\%5D\%29\&cumulative=false\&curInstr=13\&heapPrimitives=nevernest\&mode=display\&origin=opt-frontend.js\&py=3\&rawInputLstJSON=\%5B\%5D\&textReferences=false
     }{Here is an executable example.}
 
+\subsubsection{Interlude: Mutability}
+
+As you can see, the list, that was supposed to be empty, is no longer empty.
+When passing a mutable object to something else, the value is not passed to it like a mutable type.
+Instead a reference to its location in memory is passed.
+$an\_empty\_list$ and $list\_for\_content$ pointed to the same reference.
+When we added values to $list\_for\_content$, $an\_empty\_list$ also changed, since they
+point to the same \textbf{changeable} thing inside the computers memory.
+
 
 %([&%$#_{}~^\\]) \\\\\\1
 
@@ -399,7 +422,58 @@ List comprehension, somewhat like slicing, lets us create a list from another li
 Slicing only allows us to select elements from a list by index.
 List comprehension is far more powerful.
 
+\subsection{Dictionaries}
 
+A dictionary is similar to what is called hash map or hash table in other languages.
+It is a collection of values, that can be accessed by keys.
+A key can be anything that is immutable.
+Similar to a real life dictionary, if you know the name of something, you can look up
+information about that thing inside a Python dictionary.
+Dictionary values can be accessed like lists with angular braces $[]$.
+But instead of passing an index a key is passed to the dictionary.
+
+\begin{lstlisting}[language=Python]
+CLASS_AGE = {
+    "Anne": 27,
+    "John": 25,
+    "Marie": 24,
+    "Dan": 30,
+}
+
+if CLASS_AGE["John"] == 25:
+    print("John is 25")
+\end{lstlisting}
+
+\href{http://pythontutor.com/visualize.html\#code=CLASS\_AGE\%20\%3D\%20\%7B\%0A\%20\%20\%20\%20\%22Anne\%22\%3A\%2027,\%0A\%20\%20\%20\%20\%22John\%22\%3A\%2025,\%0A\%20\%20\%20\%20\%22Marie\%22\%3A\%2024,\%0A\%20\%20\%20\%20\%22Dan\%22\%3A\%2030,\%0A\%7D\%0A\%0A\%23\%20This\%20is\%20True\%0Aif\%20CLASS\_AGE\%5B\%22John\%22\%5D\%20\%3D\%3D\%2025\%3A\%0A\%20\%20\%20\%20print\%28\%22John\%20is\%2025\%22\%29\&cumulative=false\&curInstr=6\&heapPrimitives=nevernest\&mode=display\&origin=opt-frontend.js\&py=3\&rawInputLstJSON=\%5B\%5D\&textReferences=false}
+{You can look at an interactive example at pythontutor.com}
+
+\subsubsection{Dictionary Comprehension}
+
+Like list comprehension for dictionaries.
+Is done in curly brackets like a dictionary declaration.
+
+\begin{lstlisting}[language=Python]
+# index % 2 == 1 would be more readable but did not fit on a line.
+even_odd_mapping = {
+    index: "odd" if index % 2 else "even" for index in range(10)
+}
+\end{lstlisting}
+
+\subsection{Sets}
+
+A set is a list of values where no duplicates are possible.
+If a value is added twice to a set, it is not added to the set again.
+This is done through similar mechanisms\footnote{
+    Called \href{https://en.wikipedia.org/wiki/Hash_function}{hashing}
+}, that are used for the linking of keys to values dictionaries.
+Which means that like dictionary keys, set values have to be immutable.
+
+\subsection{Tuple}
+
+A tuple is a list of values.
+It is, in contrast to the normal list type, immutable
+Once set, a tuple cannot be changed.
+This means that tuple, that only contain immutable values, can be dictionary keys.
 
 \section{Functions}
 
@@ -408,14 +482,12 @@ and returns a value.
 
 
 
-\section{Generators and Iterators}
-\label{generators}
+\section{Generators and Iterators}\label{generators}
 \section{Classes and Objects}
 \section{Dealing with Errors}
 \section{Input and Output}
 \section{Modules and Packages}
 \section{Scope}
-\section{String Processing}
 \section{Processing Data Formats}
 
 
