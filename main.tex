@@ -5,6 +5,9 @@
 \usepackage{hyperref}
 \usepackage{listings}
 \usepackage{fancyvrb}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+
 
 \VerbatimFootnotes{}
 
@@ -388,6 +391,7 @@ will be 3.
     http://pythontutor.com/visualize.html\#code=an\_empty\_list\%20\%3D\%20list\%28\%29\%0Aanother\_empty\_list\%20\%3D\%20\%5B\%5D\%0A\%0Alist\_for\_content\%20\%3D\%20an\_empty\_list\%0Alist\_for\_content.append\%281\%29\%0A\%23\%20The\%20name\%20of\%20an\_empty\_list\%20is\%20now\%20a\%20lie.\%0Alist\_for\_content.append\%282\%29\%0Alist\_for\_content.append\%283\%29\%0A\%0Aa\_list\_with\_content\%20\%3D\%20\%5B1\%20,2\%20,3\%5D\%0A\%0Aprint\%28an\_empty\_list\%29\%0Aprint\%28another\_empty\_list\%29\%0Aprint\%28list\_for\_content\%29\%0Aprint\%28a\_list\_with\_content\%29\%0A\%0Aprint\%28an\_empty\_list\%5B0\%5D\%29\%0Aprint\%28an\_empty\_list\%5B2\%5D\%29\&cumulative=false\&curInstr=13\&heapPrimitives=nevernest\&mode=display\&origin=opt-frontend.js\&py=3\&rawInputLstJSON=\%5B\%5D\&textReferences=false
     }{Here is an executable example.}
 
+
 \subsubsection{Interlude: Mutability}
 
 As you can see, the list, that was supposed to be empty, is no longer empty.
@@ -444,8 +448,8 @@ if CLASS_AGE["John"] == 25:
     print("John is 25")
 \end{lstlisting}
 
-\href{http://pythontutor.com/visualize.html\#code=CLASS\_AGE\%20\%3D\%20\%7B\%0A\%20\%20\%20\%20\%22Anne\%22\%3A\%2027,\%0A\%20\%20\%20\%20\%22John\%22\%3A\%2025,\%0A\%20\%20\%20\%20\%22Marie\%22\%3A\%2024,\%0A\%20\%20\%20\%20\%22Dan\%22\%3A\%2030,\%0A\%7D\%0A\%0A\%23\%20This\%20is\%20True\%0Aif\%20CLASS\_AGE\%5B\%22John\%22\%5D\%20\%3D\%3D\%2025\%3A\%0A\%20\%20\%20\%20print\%28\%22John\%20is\%2025\%22\%29\&cumulative=false\&curInstr=6\&heapPrimitives=nevernest\&mode=display\&origin=opt-frontend.js\&py=3\&rawInputLstJSON=\%5B\%5D\&textReferences=false}
-{You can look at an interactive example at pythontutor.com}
+\href{http://pythontutor.com/visualize.html\#code=CLASS\_AGE\%20\%3D\%20\%7B\%0A\%20\%20\%20\%20\%22Anne\%22\%3A\%2027,\%0A\%20\%20\%20\%20\%22John\%22\%3A\%2025,\%0A\%20\%20\%20\%20\%22Marie\%22\%3A\%2024,\%0A\%20\%20\%20\%20\%22Dan\%22\%3A\%2030,\%0A\%7D\%0A\%0A\%23\%20This\%20is\%20True\%0Aif\%20CLASS\_AGE\%5B\%22John\%22\%5D\%20\%3D\%3D\%2025\%3A\%0A\%20\%20\%20\%20print\%28\%22John\%20is\%2025\%22\%29\%0A\%20\%20\%20\%20\%0Afor\%20key,\%20value\%20in\%20CLASS\_AGE.items\%28\%29\%3A\%0A\%20\%20\%20\%20print\%28f\%22\%7Bkey\%7D\%20is\%20\%7Bvalue\%7D\%20years\%20old.\%22\%29\&cumulative=false\&curInstr=15\&heapPrimitives=nevernest\&mode=display\&origin=opt-frontend.js\&py=3\&rawInputLstJSON=\%5B\%5D\&textReferences=false}
+{Interactive example at pythontutor.com}
 
 \subsubsection{Dictionary Comprehension}
 
@@ -485,7 +489,35 @@ and returns a value.
 \section{Generators and Iterators}\label{generators}
 \section{Classes and Objects}
 \section{Dealing with Errors}
+
+\subsection{Tracebacks}
+
+A traceback is returned by python if an exception is raised unhandled.
+It includes the function calls leading up to the position where the error was raised.
+Tracebacks are very useful to locate errors in your code.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.8\textwidth]{traceback.png}
+    \caption{A traceback in an interactive shell with some dummy functions.}
+    \label{traceback}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.8\textwidth]{file-traceback.png}
+    \caption{A traceback from the execution of a Python Script containing the functions from \ref{traceback}.}
+    \label{file-traceback}
+\end{figure}
+
+\subsection{Debugger}
+
+
+
 \section{Input and Output}
+
+\href{http://pythontutor.com/visualize.html\#code=\%23\%20Opening\%20a\%20file\%20is\%20not\%20allowed\%20on\%20pythontutor.\%0A\%23\%20StringIO\%20gives\%20us\%20an\%20object\%0A\%23\%20that\%20behaves\%20like\%20a\%20file\%20handler.\%0Afrom\%20io\%20import\%20StringIO\%0A\%0Adef\%20message\%28file\%29\%3A\%0A\%20\%20\%20\%20if\%20file.closed\%3A\%0A\%20\%20\%20\%20\%20\%20\%20\%20print\%28\%22The\%20file\%20is\%20closed\%22\%29\%0A\%20\%20\%20\%20else\%3A\%0A\%20\%20\%20\%20\%20\%20\%20\%20print\%28\%22The\%20file\%20is\%20open.\%22\%29\%0A\%0A\%0A\%23\%20with\%20open\%28\%22filename\%22,\%20\%22r\%22\%29\%20as\%20file\%3A\%0Awith\%20StringIO\%28\%22Fake\%20file\%20content.\%22\%29\%20as\%20file\%3A\%0A\%20\%20\%20\%20message\%28file\%29\%0A\%20\%20\%20\%20print\%28file.read\%28\%29\%29\%0A\%20\%20\%20\%20print\%28file.read\%28\%29\%29\%0A\%20\%20\%20\%20file.seek\%280\%29\%0A\%20\%20\%20\%20print\%28file.read\%28\%29\%29\%0A\%0Amessage\%28file\%29\&cumulative=false\&curInstr=17\&heapPrimitives=nevernest\&mode=display\&origin=opt-frontend.js\&py=3\&rawInputLstJSON=\%5B\%5D\&textReferences=false}{Example for file reading.}
+
 \section{Modules and Packages}
 \section{Scope}
 \section{Processing Data Formats}
