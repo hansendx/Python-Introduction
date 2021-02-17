@@ -679,11 +679,115 @@ This makes it possible to work with data, that would not fit in your
 systems memory.
 
 \section{Classes and Objects}
+
+A class is a template for objects, that defines preset data and functionality.
+In Python3 a class defines a type, meaning that every value is an object,
+since it is an instance of a class.
+Really Everything in Python3 is an object.
+Even basic types like integers and float are objects.
+Functions are also objects.
+
+\begin{lstlisting}[language=python]
+>>> isinstance(1, object)
+True
+>>> isinstance(print, object)
+True
+\end{lstlisting}
+
+But what exactly is an object?
+While a class is an the general definition of a class of entities, an object
+is a specific instance of an entity.
+The terms object and instance are often used interchangeably.
+Like the class itself an object combines data and functionality.
+Imagine car as a class of entities.
+All (function, street legal) cars can accelerate, break and have a horn.
+
+\begin{lstlisting}
+class Car():
+
+    horn_sound: str = "Honk!"
+    _speed: float = 0.0
+
+    def __init__(self, horn_sound: str = None):
+        if horn_sound:
+            self.horn_sound = horn_sound
+
+    def accelerate(self, kmh: float = 0.0):
+        self._speed = self._speed + kmh
+
+    def brake(self, target_kmh: float = 0.0):
+        if target_kmh < self._speed:
+            self._speed = float(target_kmh)
+
+    def honk(self):
+        print(self.horn_sound)
+
+    @property
+    def speed(self):
+        return f"{self._speed} km/h"
+
+
+\end{lstlisting}
+
+Functions that bind to an object are called methods in Python.
+The $\_\_init\_\_$ method is called implicitly when the class is called.
+It is used to set initial values for an object.
+The $\_\_init\_\_$ exists in every class, even if you do not declare it explicitly.
+If it is not declared, all the $\_\_init\_\_$ will do is return the instantiated object.
+Which it also does implicitly after the execution of your method block,
+if you declare it explicitly.
+\footnote{The $\_\_init\_\_$ is part of Pythons magic methods,
+    also called dunder (double underscore) methods.
+    They are a set of methods that provide special functionality.
+    If, for example, an object implements the $\_\_add\_\_$ method the $+$ operator
+    can be used with it.
+    Or you can implement the $\_\_next\_\_$ method to makes an object iterable}
+
+If we want to keep track of several cars we can now do this:
+
+\begin{lstlisting}[language=python]
+my_car = Car()
+your_car = Car("Biep!")
+
+my_car.accelerate(30)
+your_car.accelerate(40)
+
+print(my_car.speed)
+print(your_car.speed)
+
+my_car.honk()
+your_car.brake(30)
+your_car.honk()
+
+print(my_car.speed)
+print(your_car.speed)
+\end{lstlisting}
+
+\href{http://pythontutor.com/visualize.html#code=class%20Car%28%29%3A%0A%0A%20%20%20%20horn_sound%3A%20str%20%3D%20%22Honk!%22%0A%20%20%20%20_speed%3A%20float%20%3D%200.0%0A%0A%20%20%20%20def%20__init__%28self,%20horn_sound%3A%20str%20%3D%20None%29%3A%0A%20%20%20%20%20%20%20%20if%20horn_sound%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20self.horn_sound%20%3D%20horn_sound%0A%0A%20%20%20%20def%20accelerate%28self,%20kmh%3A%20float%20%3D%200.0%29%3A%0A%20%20%20%20%20%20%20%20self._speed%20%3D%20self._speed%20%2B%20kmh%0A%0A%20%20%20%20def%20brake%28self,%20target_kmh%3A%20float%20%3D%200.0%29%3A%0A%20%20%20%20%20%20%20%20if%20target_kmh%20%3C%20self._speed%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20self._speed%20%3D%20float%28target_kmh%29%0A%0A%20%20%20%20def%20honk%28self%29%3A%0A%20%20%20%20%20%20%20%20print%28self.horn_sound%29%0A%0A%20%20%20%20%40property%0A%20%20%20%20def%20speed%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20f%22%7Bself._speed%7D%20km/h%22%0A%20%20%20%20%20%20%20%20%0Amy_car%20%3D%20Car%28%29%0Ayour_car%20%3D%20Car%28%22Biep!%22%29%0A%0Amy_car.accelerate%2830%29%0Ayour_car.accelerate%2840%29%0A%0Aprint%28my_car.speed%29%0Aprint%28your_car.speed%29%0A%0Amy_car.honk%28%29%0Ayour_car.brake%2830%29%0Ayour_car.honk%28%29%0A%0Aprint%28my_car.speed%29%0Aprint%28your_car.speed%29%0A&cumulative=false&curInstr=47&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false}{You can look at the executable example here.}
+
+Object oriented programming or OOP can fill whole semesters at University as a subject.
+You do not have to understand all aspects of OOP to use Python.
+But a basic understanding will certainly help.
+Keep in mind that objects combine data with functionality.
+Be mindful while working with objects, they will often be mutable and
+changing mutable object without intending to do so is a frequent source of errors.
+
+\subsection{When to use OOP}
+
+The invention of Object Oriented Programming is a milestone in computer programming.
+It made many tasks easier to develop, maintain and comprehend.
+But it is not the be-all end-all of programming.
+If you have no reason to use classes and object, you should probably not force it.
+But if you find yourself putting a lot of the same data in different functions,
+it might be a good idea to let them share this data by encapsulating them
+in an object.
+
+
 \section{Dealing with Errors}
 
 \subsection{Tracebacks}
 
-A traceback is returned by python if an exception is raised unhandled.
+A traceback is returned by python if an exception is raised and not handled.
 It includes the function calls leading up to the position where the error was raised.
 Tracebacks are very useful to locate errors in your code.
 
