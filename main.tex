@@ -7,6 +7,35 @@
 \usepackage{fancyvrb}
 \usepackage{graphicx}
 \usepackage[citestyle=numeric,bibstyle=numeric]{biblatex}
+
+\usepackage{xcolor}
+
+
+\definecolor{commentsColor}{rgb}{0.497495, 0.497587, 0.497464}
+\definecolor{keywordsColor}{rgb}{0.000000, 0.000000, 0.635294}
+\definecolor{stringColor}{rgb}{0.558215, 0.000000, 0.135316}
+
+\lstset{ %
+  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
+  basicstyle=\footnotesize,        % the size of the fonts that are used for the code
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  commentstyle=\color{commentsColor}\textit,    % comment style
+  deletekeywords={...},            % if you want to delete keywords from the given language
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\color{keywordsColor}\bfseries,       % keyword style
+  language=Python,                 % the language of the code (can be overrided per snippet)
+  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  numberstyle=\tiny\color{commentsColor}, % the style that is used for the line-numbers
+  stringstyle=\color{stringColor}, % string literal style
+  title=\lstname,                  % show the filename of files included with \lstinputlisting; also try caption instead of title
+  columns=fixed                    % Using fixed column width (for e.g. nice alignment)
+}
+
+
 \graphicspath{ {./images/} }
 
 \addbibresource{bibliography.bib}
@@ -741,7 +770,9 @@ if you declare it explicitly.
     They are a set of methods that provide special functionality.
     If, for example, an object implements the $\_\_add\_\_$ method the $+$ operator
     can be used with it.
-    Or you can implement the $\_\_next\_\_$ method to makes an object iterable}
+    Or you can implement the $\_\_next\_\_$ method to makes an object iterable.
+    They are not intended to be called explicitly, instead they are meant to be
+    called by the Python interpreter.}
 
 If we want to keep track of several cars we can now do this:
 
@@ -787,33 +818,198 @@ in an object.
 
 \subsection{Tracebacks}
 
-A traceback is returned by python if an exception is raised and not handled.
-It includes the function calls leading up to the position where the error was raised.
+A traceback, also more generally called stack trace, is returned by python if
+an exception is raised and not handled, i.e. when there is an error in the program.
+It lists the function calls leading up to the position where the error was raised.
 Tracebacks are very useful to locate errors in your code.
+The last line of the traceback will list the actual exception with its error message.
+The second to last line and the line above that list the code line from which the error
+originated and its position.
+The position includes the filename,
+the position of the faulty line in the file and name of the enclosing function.
+Often this will point to a line in your code and to the actual cause of the fault.
+But it may also point to a line in a library you use, that is not the cause of the
+fault.
+In this case you may have passed invalid data to a function.
+The actual error can then be located through the remaining lines above.
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=.8\textwidth]{traceback.png}
-    \caption{A traceback in an interactive shell with some dummy functions.}
-    \label{traceback}
-\end{figure}
+Note, that the cause of the error could in a line of your code, that is not part of
+a function call in the stacktrace.
+In that case you might only be able to narrow down the location to the most
+likely function block.
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=.8\textwidth]{file-traceback.png}
-    \caption{A traceback from the execution of a Python Script containing the functions from \ref{traceback}.}
-    \label{file-traceback}
-\end{figure}
+
+\begin{lstlisting}[language=python]
+def first():
+    second()
+
+def second():
+    third()
+
+def third():
+    a_list = [1,2]
+    a_list[10]
+
+first()
+\end{lstlisting}
+
+\begin{lstlisting}
+:~$ python3 traceback_test.py 
+Traceback (most recent call last):
+  File "traceback_test.py", line 11, in <module>
+    first()
+  File "traceback_test.py", line 2, in first
+    second()
+  File "traceback_test.py", line 5, in second
+    third()
+  File "traceback_test.py", line 9, in third
+    a_list[10]
+IndexError: list index out of range
+\end{lstlisting}
 
 \subsection{Debugger}
 
+A debugger is a tool, that helps you step through your code while it is being executed.
+This is, as the name suggests, done to remove bugs/errors from your code.
+VSCode and other code editors and IDEs provide tools that support you in debugging.
+% TODO
 
+\subsection{Unit Testing}
+
+Testing is a way to try to identify errors before they can cause problems.
+There are several types of tests.
+On the highest level are tests, that execute a program from start to finish
+and include interactions with external components like databases.
+On the smallest level are unit tests.
+They test the smallest unit of a program, functions.
+Python3 comes with a unit test library included.
+
+A good coverage of your code with unit tests gives you several advantages:
+
+\begin{itemize}
+    \item Your code is probably running as intended.
+    \item Your code base is more flexible.
+    \item You can better target your debugging efforts.
+    \item You gain a documentation that does not lie.\footnote{
+              Static documentation in comments or external texts can always
+              \qq{lie} when they are outdated.
+              Unit tests cannot \qq{lie}.
+              They will fail if you forget to update them with your code.}
+\end{itemize}
+
+\lstinputlisting{scripts/test_car.py}
 
 \section{Input and Output}
 
-\href{http://pythontutor.com/visualize.html\#code=\%23\%20Opening\%20a\%20file\%20is\%20not\%20allowed\%20on\%20pythontutor.\%0A\%23\%20StringIO\%20gives\%20us\%20an\%20object\%0A\%23\%20that\%20behaves\%20like\%20a\%20file\%20handler.\%0Afrom\%20io\%20import\%20StringIO\%0A\%0Adef\%20message\%28file\%29\%3A\%0A\%20\%20\%20\%20if\%20file.closed\%3A\%0A\%20\%20\%20\%20\%20\%20\%20\%20print\%28\%22The\%20file\%20is\%20closed\%22\%29\%0A\%20\%20\%20\%20else\%3A\%0A\%20\%20\%20\%20\%20\%20\%20\%20print\%28\%22The\%20file\%20is\%20open.\%22\%29\%0A\%0A\%0A\%23\%20with\%20open\%28\%22filename\%22,\%20\%22r\%22\%29\%20as\%20file\%3A\%0Awith\%20StringIO\%28\%22Fake\%20file\%20content.\%22\%29\%20as\%20file\%3A\%0A\%20\%20\%20\%20message\%28file\%29\%0A\%20\%20\%20\%20print\%28file.read\%28\%29\%29\%0A\%20\%20\%20\%20print\%28file.read\%28\%29\%29\%0A\%20\%20\%20\%20file.seek\%280\%29\%0A\%20\%20\%20\%20print\%28file.read\%28\%29\%29\%0A\%0Amessage\%28file\%29\&cumulative=false\&curInstr=17\&heapPrimitives=nevernest\&mode=display\&origin=opt-frontend.js\&py=3\&rawInputLstJSON=\%5B\%5D\&textReferences=false}{Example for file reading.}
+If you want to work with files directly, you will have to work with file objects.
+To create a file object you have to call the $open()$ function with a filepath.
+This will open the file in read mode.
+If you want  to do something other than reading the file, you will have to specify a mode.
+Modes are:
+
+\begin{itemize}
+    \item 'r' for reading
+    \item 'w' for writing ("Deletes" pre-existing content.)
+    \item 'a' for appending to an existing File
+    \item 'b' to read or write directly with bytes objects without intermediate de-/encoding
+    \item '+' for reading and subsequent writing
+\end{itemize}
+
+An opened file can be read or written to in one go or line by line.
+
+\begin{lstlisting}[language=Python]
+some_file = open("./my/path/some_file.txt")
+some_string = some_file.read()
+
+# Since we read the whole file, the file object now points
+# at the end of the file and subsequent reads
+# will only return an empty string.
+# We can go back to the beginning of the file with the seek method.
+some_file.seek(0)
+
+first_line = some_file.readline()
+second_line = some_file.readline()
+
+some_file.seek(0)
+
+file_as_list_of_lines = some_file.readlines()
+
+some_file.seek(0)
+
+# File objects are also iterable
+for line in some_file:
+    print(line, end='')
+ 
+# A file object will keep allocating memory space
+# if it is not closed. 
+some_file.close()
+\end{lstlisting}
+
+You can also open files with a context manager.
+That way you do not have to close the file yourself.
+
+\begin{lstlisting}
+with open("./my/path/some_file.txt") as some_file:
+    file_content = some_file.read()
+
+# File is closed automatically when leaving the with block.
+for character in file_content:
+    print(character)
+\end{lstlisting}
+
+For more detailed information about file handling you can look at
+\href{https://realpython.com/read-write-files-python/}{the documentation.}
+
+Some libraries like pandas do the file handling for you.
+To open a file in pandas you just have to pass the path to the file.
+
+\begin{lstlisting}
+import pandas
+
+some_data = pandas.read_stata("./some-data.dta")
+
+\end{lstlisting}
+
+%\href{http://pythontutor.com/visualize.html\#code=\%23\%20Opening\%20a\%20file\%20is\%20not\%20allowed\%20on\%20pythontutor.\%0A\%23\%20StringIO\%20gives\%20us\%20an\%20object\%0A\%23\%20that\%20behaves\%20like\%20a\%20file\%20handler.\%0Afrom\%20io\%20import\%20StringIO\%0A\%0Adef\%20message\%28file\%29\%3A\%0A\%20\%20\%20\%20if\%20file.closed\%3A\%0A\%20\%20\%20\%20\%20\%20\%20\%20print\%28\%22The\%20file\%20is\%20closed\%22\%29\%0A\%20\%20\%20\%20else\%3A\%0A\%20\%20\%20\%20\%20\%20\%20\%20print\%28\%22The\%20file\%20is\%20open.\%22\%29\%0A\%0A\%0A\%23\%20with\%20open\%28\%22filename\%22,\%20\%22r\%22\%29\%20as\%20file\%3A\%0Awith\%20StringIO\%28\%22Fake\%20file\%20content.\%22\%29\%20as\%20file\%3A\%0A\%20\%20\%20\%20message\%28file\%29\%0A\%20\%20\%20\%20print\%28file.read\%28\%29\%29\%0A\%20\%20\%20\%20print\%28file.read\%28\%29\%29\%0A\%20\%20\%20\%20file.seek\%280\%29\%0A\%20\%20\%20\%20print\%28file.read\%28\%29\%29\%0A\%0Amessage\%28file\%29\&cumulative=false\&curInstr=17\&heapPrimitives=nevernest\&mode=display\&origin=opt-frontend.js\&py=3\&rawInputLstJSON=\%5B\%5D\&textReferences=false}{Example for file reading.}
 
 \section{Modules and Packages}
+
+Modules are another way to make your code more modular and readable.
+If you are writing a script and you get the feeling, that it gets overlong,
+you can split it into modules.
+Modules are, in essence, just Python files.
+
+Then what is the difference to scripts?
+A script is something you execute and a module is something you import.
+Every module can also be executed as a script and every script could
+technically be imported.
+Meaning the line between them is blurry and depends on your intentions.
+
+Best practice for the creation of modules is to fill them with parts, that are
+highly connected while minimizing connections to other modules.
+Meaning that parts of your software, that interact a lot with each other
+should probably not be split into different modules and parts, that do not interact with
+each other, could potentially be put into separat modules.
+If they do not interact with each other, they might however still fit into
+the same module, because they serve a similar purpose.
+
+Modules can be put together to make a package.
+The most basic form of package is a folder with the special $\_\_init\_\_.py$
+module in it.
+The presence of the $\_\_init\_\_.py$ file tells Python to treat the folder as a
+package.
+The $\_\_init\_\_.py$ can be empty.
+It's content will be executed if something is imported from the directory.
+You could put your module content directly into the $\_\_init\_\_.py$ but
+that goes against most common practices and might confuse people
+who might want to use your code.
+
+If you create a package from your code, you can make it installable.
+A properly configured package is also more easily shareable.
+And creating it comes with steps, like declaring your dependencies, that
+can also help you use your code in the future.
+
+
 \section{Scope}
 \section{Processing Data Formats}
 
