@@ -1009,9 +1009,90 @@ A properly configured package is also more easily shareable.
 And creating it comes with steps, like declaring your dependencies, that
 can also help you use your code in the future.
 
+A minimal setup for packaging your project requires your package Folder and
+a setup.py or setup.cfg file inside the folder your package folder resides in.
+If your project is more complex and you need non standard build tools,
+you can declare them in a pyprojects.toml file.
+
+For more information, you can look at
+\href{https://packaging.python.org/tutorials/packaging-projects/}{this Python packaging tutorial.}
 
 \section{Scope}
+
+Scope is a section of your code where a set of names are valid.
+If you create a variable, you give it a name and that name is valid in a scope.
+In Python there are four scopes that are nested inside each other.
+
+The smallest scope is the local scope.
+Everything that is declared in a function becomes part of this functions local scope.
+Meaning, that variables, that are declared in a function can only be accessed
+from inside this function.
+
+The next larger scope is the enclosing scope.
+If you nest a function inside another function, the local scope of the outer function
+is in the enclosing scope of the inner function.
+The inner function has access to all names in the scope of the outer.
+
+The next larger scope is the scope of a module, the global scope.
+Everything that is declared in a module becomes part of its global scope.
+In addition, when you import something in a module, it enters the scope of this module.
+Names that are accessible through the global scope, are accessible everywhere in
+you module.
+
+The largest scope is the built-in scope.
+This is a special scope provided by Python.
+It contains all built-in functionality.
+$print$ for example is part of the built-in scope.
+Names from the built-in scope can be accessed anywhere in Python.
+
+\subsection{Masking}
+
+When Python wants to resolve a name, it \qq{searches} through the scopes in the order
+of local, enclosing, global and then built-in.
+Python stops this search, when it finds a name.
+This means that names in a local scope mask names in the global scope.
+
+\begin{lstlisting}
+some_number = 1
+
+def some_function():
+    some_number = 3
+    print(some_number)
+
+some_function()
+print(some_number)
+\end{lstlisting}
+
+This will print 3 and then 1.
+You can even overwrite built-ins.
+But you should not do that, since it can lead to a lot of problems.
+Masking in general can lead to problems in your code, since it makes it harder
+for humans to keep track which variables are currently manipulated.
+A linter like pylint will, if not differently configured, warn you if you mask
+build-ins.
+
+\begin{lstlisting}
+>>> print = 3
+>>> print(print)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: 'int' object is not callable
+\end{lstlisting}
+
+
 \section{Processing Data Formats}
+
+Python has built-in functions to read and write CSV and JSON files.
+The content of JSON files can be directly mapped to Python internal data types,
+which makes JSON a great data format to work with in Python.\footnote{
+\href{http://pythontutor.com/visualize.html#code=import%20json%0A%0Asome_unparsed_json%3A%20str%20%3D%20%22%22%22%7B%0A%22my_key%22%3A%20%22my_value%22,%0A%22my_list_key%22%3A%20%5B1,%202,%203%5D%0A%7D%0A%22%22%22%0A%0Aparsed_json%20%3D%20json.loads%28some_unparsed_json%29%0Aprint%28parsed_json%5B%22my_list_key%22%5D%29&cumulative=false&curInstr=0&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false}{Interactive example for reading JSON.}
+}
+Working with CSV files is a bit more complicated.
+But there are several libraries from the data science community that help with
+the processing of CSV and other tabular data formats.
+Pandas, for example, has functions that can read CSV,
+Stata, SPSS, SAS and several other formats.
+It also provides a large collection of functionality to work wit the data from these files.
 
 
 \printbibliography[type=book,title={Book Sources}]
