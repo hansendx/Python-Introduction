@@ -187,6 +187,19 @@ But it is a piece of shared knowledge between many Python programmers.
 Adhering to and knowing the conventions makes it easier for you to understand
 the code of others and your own code after you did not look at it for a long time.
 
+\subsection{Installing and tracking packages}
+
+%TODO
+
+\begin{lstlisting}
+pip install --user pipenv
+\end{lstlisting}
+
+\begin{lstlisting}
+pipenv install pandas
+\end{lstlisting}
+
+\pagebreak
 \section{Python compared to other languages}
 
 \subsection{Python compared to R}
@@ -237,6 +250,8 @@ the code of others and your own code after you did not look at it for a long tim
         \\\bottomrule
     \end{tabularx}
 \end{table}
+
+
 
 \section{Pythonsyntax}
 
@@ -307,7 +322,8 @@ some_function() # This is also an expression.
 \end{lstlisting}
 
 A statement is a line of code that causes an action to be performed.
-The above expressions are also statements in Python, since they .
+The above expressions are also statements in Python, since they stand alone on a line.
+In interactive sessions such expression statements return a string representation to the interactive shell. 
 The action that is performed there, is the evaluation of the respective expression.
 Statements can not be combined to form new statements.
 
@@ -325,7 +341,7 @@ y = x = 1 + 2 # This is incorrect python syntax.
 
 \subsection{if, elif, else}
 
-Decision making is an important part in most programms.
+Decision making is an important part in most programs.
 Oftentimes we have to handle data differently depending on
 the makeup of the data.
 Or we have to decide to do certain things if our data is a certain way.
@@ -815,6 +831,35 @@ in an object.
 
 
 \section{Dealing with Errors}
+
+Errors in your code can lead to incorrect output of the program or an outright failure during run time.
+When Python encounters something unexpected an exception is raised.
+
+\begin{lstlisting}
+>>> empty_list = list()
+>>> empty_list[0]
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+IndexError: list index out of range
+\end{lstlisting}
+
+If you expect that an exception might be raised somewhere in your code, you can handle it with the $try \cdots except$ block.
+
+
+\begin{lstlisting}[language=Python]
+...
+try:
+    a_value = a_list[0]
+except IndexError:
+    a_value = None
+...
+\end{lstlisting}
+
+This will catch the $IndexError$ and the program run will not fail if $a_list$ is empty.
+Instead the code in the except part is executed.
+The statement catches all exceptions of type $IndexError$ and all exceptions that inherit from it.
+This means you could also use $BaseException$ here since all in-built exceptions inherit from this class.
+
 
 \subsection{Tracebacks}
 
