@@ -1,23 +1,25 @@
 import turtle
 
 from math import pi, sqrt
-from typing import Tuple
+from typing import Dict, Tuple
 
 turtle.reset()
 
 SIZE_MODIFIER: int = 4
 CIRCLE_DETAIL = 200
 
+PointVektor = Tuple[float, float]
 
-def point_distance(point_x, point_y) -> float:
+
+def point_distance(point_x: PointVektor, point_y: PointVektor) -> float:
     return sqrt(((point_x[0] - point_y[0]) ** 2) + (point_x[1] - point_y[1]) ** 2)
 
 
 def circumference(radius: float) -> float:
-    return 2 * pi * radius
+    return int(2 * pi * radius)
 
 
-def draw_wind_rose():
+def draw_wind_rose() -> Dict[str, float]:
     points = 8
     inside_angle = 360 / points
     left_most_point: Tuple[float, float] = (0.0, 0.0)
@@ -35,7 +37,7 @@ def draw_wind_rose():
     return {"radius": radius, "inside_angle": inside_angle}
 
 
-def draw_circle(circumference: float):
+def draw_circle(circumference: float) -> None:
     for _ in range(CIRCLE_DETAIL):
         turtle.left(360 / CIRCLE_DETAIL)
         turtle.forward(circumference / CIRCLE_DETAIL)
