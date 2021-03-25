@@ -121,31 +121,85 @@ Install the full anaconda distribution not miniconda.
 
 
 
+
 \subsection{Your Development Environment}
 
 Probably the most popular editors for python developers are
 \href{https://code.visualstudio.com/}{Visual Studio Code}
 and \href{https://www.jetbrains.com/pycharm/}{PyCharm}.
 PyCharm is specifically geared towards development in Python.
-VSCode was created for web development but it also has a wide array of
-extensions that allow you to work with other languages.
+VSCode was created for web development but has a wide array of
+extensions that will allow you to work with other languages.
 The Python extension is very mature and actively developed by microsoft.
 VSCode is completely open source whereas PyCharm is partially open source, with
 a free and a commercial version.
 
+\subsubsection{Your Project Folder}
+
+I would recommend that you keep a designated folder for your programming projects with sub-folders for each project.
+From within this Folder you can initialize your virtual Python environment, if you need it.
+The main purpose of such a virtual environment is to keep you system clean.
+
+\subsubsection{Virtual envirnonments}
+
+When working with Python it is very likely that you want to use third party libraries
+that are not part of your main Python installation.
+You can install libraries through packages with pythons package installer $pip$.
+
+\begin{lstlisting}
+python -m pip install pandas
+# or
+pip install pandas
+\end{lstlisting}
+
+This will install the libraries into the system installation and you might need super user rights.
+Another problem is that this will clutter up your system library over time and might cause
+dependency issues.
+A better alternative is to install packages separately into your users home folder.
+
+\begin{lstlisting}
+python -m pip install --user pandas
+# or
+pip install --user pandas
+\end{lstlisting}
+
+You won't need super user rights to do this but if you start working with several Python projects,
+this might still cause problems.
+By default, all your Python code will import libraries from either the system location
+or your home folder location.
+If you have several Python projects, some might be dependent on different versions of the
+same package.
+But in your system and home installation can only ever exist one version of a package.\footnote{
+    A slightly more concise description of the problem is in the introduction of this tutorial:
+    \href{https://docs.python.org/3/tutorial/venv.html}{Virtual Environments and Packages}
+}
+
+You can isolate your projects python environment through virtual environments.
+A tool to better separate your projects environment from the system is the virtual environment.
+From within your project directory you can initialize a virtual environment via:
+
+\begin{lstlisting}
+# First install virtualenv
+python -m pip install virtualenv
+# Then you can use it.
+python -m virtualenv .
+\end{lstlisting}
+
+
 \subsubsection{VSCode Setup}
 
-Get an installer for your system at
+Get the installer for your system at
 \href{https://code.visualstudio.com/}{code.visualstudio.com}.
 Once installed open VSCode and install the Python extension.
 \begin{itemize}
     \item Extensions can be opened via the toolbar on the left or with Ctrl+Shift+x.
     \item Search for Python in the extensions, first result should be the correct one.
     \item Open settings. Shortcut here is Ctrl+,
-    \item On Windows search the settings for the entry
+    \item Using Windows, search the settings for the entry
           ``Python: Conda Path'' and set it for your system.\footnote{Will Probably be at\\ \
               \verb!D:\Users\YOURUSERNAME\AppData\Local\Continuum\anaconda3\Scripts\conda.exe! }
-    \item Onm Linux the Path to Python will probably already be set correctly.
+    \item With Linux the Path to Python will probably already be set correctly.
+    \item You can also set the Path to a virtual environment.
     \item Enable all linters and style checker, that you like.
     \item VSCode will help you with the installation of linters and style checkers,
           if the Python or Conda path ist set correctly.
@@ -174,8 +228,8 @@ is \href{https://github.com/PyCQA/pycodestyle}{pycodestyle}.
 It checks if your code adheres to the Python
 \href{https://www.python.org/dev/peps/pep-0008/}{PEP 8} style guide.
 
-Many problems such linters might find, can potentially be fixed automatically.
-Black is a formatter, that can fix many style guide violations automatically.
+Many problems linters might find in your code, can be fixed automatically.
+Black is a formatter, that can fix most style guide violations by itself.
 It is an opinionated formatter, meaning that it is not very configurable by design.
 Black also tries to format your code in a way to improve git diffs.
 
@@ -323,7 +377,7 @@ some_function() # This is also an expression.
 
 A statement is a line of code that causes an action to be performed.
 The above expressions are also statements in Python, since they stand alone on a line.
-In interactive sessions such expression statements return a string representation to the interactive shell. 
+In interactive sessions such expression statements return a string representation to the interactive shell.
 The action that is performed there, is the evaluation of the respective expression.
 Statements can not be combined to form new statements.
 
@@ -618,7 +672,7 @@ This means that a tuple, that only contain immutable values, can be a dictionary
 
 You can accomplish many tasks while just using one of these more complex data structures.
 But each has its own pros and cons.
-If you want to be create an efficient program, you should think about which data structures
+If you want to create an efficient program, you should think about which data structures
 to use.
 
 A common trade of in efficient programming is time vs. space.
