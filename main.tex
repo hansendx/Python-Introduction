@@ -677,6 +677,26 @@ some_numbers = remove_even(some_numbers)
 some_more_numbers = remove_even(some_more_numbers)
 \end{lstlisting}
 
+Functions are also used as a means of documentation by some.
+This is done with sections of code that would otherwise need a comment
+to explain its purpose.
+When doing this, the purpose of this code section is communicated through a
+function name that carries meaning.
+The rational is that comments are more likely to be forgotten during updates and
+outdated comments could cause confusion in the future.
+Comments are not part of the actual program and are ignored during execution,
+while a function name is part of the program and outdated functions might be
+identified during testing.
+
+While this is a legitimate and useful application of functions, you should keep
+two things in mind.
+
+\begin{enumerate}
+    \item When you encapsulate too much, you will probably make your code less readable, since you have to skip all over the code to see what happens.
+    \item Everything in Python is an Object, even functions.
+          Creating and handling a lot of function objects will caus some overhead.
+          Depending on your application this will be negligible for most use cases but it could also cause a meaningful rise in the programs runtime.
+\end{enumerate}
 
 \section{Iterators and Generators }\label{generators}
 
