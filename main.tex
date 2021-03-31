@@ -2,14 +2,16 @@
 \usepackage[utf8]{inputenc}
 \usepackage{tabularx}
 \usepackage{booktabs}
+\usepackage{epigraph}
 \usepackage{hyperref}
 \usepackage{listings}
 \usepackage{fancyvrb}
 \usepackage{graphicx}
-\usepackage[citestyle=numeric,bibstyle=numeric]{biblatex}
+\usepackage[citestyle=authoryear,bibstyle=numeric]{biblatex}
 
 \usepackage{xcolor}
 
+\setlength{\epigraphwidth}{.8\textwidth}
 
 \definecolor{commentsColor}{rgb}{0.497495, 0.497587, 0.497464}
 \definecolor{keywordsColor}{rgb}{0.000000, 0.000000, 0.635294}
@@ -275,11 +277,11 @@ pipenv install pandas
 
         Main package repository is \href{https://pypi.org/}{pypi} with 216.195 packages.
 
-        Has a \href{https://github.com/mre/awesome-static-analysis\#python}{large library}
+        Has a \href{https://github.com/mre/awesome-static-analysis\#python}{large selection}
         of software that helps developers write good code.
 
         Has \href{https://www.python.org/dev/peps/pep-0008/}{official best practices}
-        to help in writing more comprehensible code.
+        to help you write more comprehensive code.
 
         Has a unittesting library in its own standard library.
 
@@ -294,7 +296,7 @@ pipenv install pandas
 
         Main package repository is \href{https://cran.r-project.org/}{CRAN} with 15.330 packages.
 
-        Has a \href{https://github.com/mre/awesome-static-analysis\#r}{small library}
+        Has a \href{https://github.com/mre/awesome-static-analysis\#r}{small selection}
         of software that helps developers write good code.
 
         Has no consensus on style or best practices.
@@ -754,9 +756,9 @@ two things in mind.
 
 \section{Iterators and Generators }\label{generators}
 
-\qq{Any object that implements the $\_\_next\_\_$ no-argument method,
+\epigraph{Any object that implements the $\_\_next\_\_$ no-argument method,
     which returns the next item in a series, or raises StopIteration
-    when there are no more items}\cite{Ram2015}
+    when there are no more items}{\cite{Ram2015}}
 
 This is the formal definition of the iterator design pattern in Python.
 You do not have to understand this right now but you can come back to it when
