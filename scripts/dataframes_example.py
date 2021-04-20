@@ -3,6 +3,7 @@ import pandas
 import numpy
 
 # %%
+# Building a DataFrame "by hand"
 
 names = ["Hans", "Ina", "Gerd", "Lena", "Nic", "Noah"]
 sex = ["m", "w", "m", "w", "m", "m"]
@@ -18,6 +19,7 @@ people = pandas.DataFrame(
     }
 )
 
+
 people["sex"] = pandas.Series(sex).astype("category")
 people["schulabschluss"] = people["schulabschluss"].astype("category")
 people["programmierkenntnisse"] = people["programmierkenntnisse"].astype("category")
@@ -26,6 +28,7 @@ people["programmierkenntnisse"].cat.reorder_categories(
 )
 
 # %%
+# Output some aspects of the DataFrame
 
 print(people)
 print("=" * 50)
@@ -35,10 +38,16 @@ print(people["programmierkenntnisse"])
 
 
 # %%
-
+# Drop all rows that contain missings in the columns identified by the keys in the list.
+# Pandas treats Pythons standard None and NumPys nan as missing.
 people.dropna(subset=["schulabschluss"])
 
+# Drop all rows that contain missings in at least one column.
+people.dropna()
+
+
 #%%
+# Replace missings with a value.
 series = pandas.Series([2, 3, numpy.nan, None, 4])
 print("A series with missing values:\n", series)
 print("Replace missings:\n", series.fillna("missing"))
@@ -49,5 +58,8 @@ print(
 
 
 # %%
+# Count occurences of category values.
 
 people["sex"].value_counts()
+
+# %%

@@ -92,6 +92,8 @@
 
 \subsection{Installing Python}
 
+You should use
+
 \subsubsection{Linux}\label{linux_python_install}
 Many linux systems have Python already installed.
 Older systems might have Python2 alongside Python3.
@@ -114,14 +116,11 @@ installation command from the section{~}\ref{linux_python_install}.
 
 \subsection{Windows 7}
 If you still have a Windows 7 installion on your personal PC you should upgrade to Windows 10.
-Windows 7 is no longer save to work in.
+Windows 7 is no longer save to work with.
 If you have to work with a Windows 7 systems on your work station at the DIW you can use conda.
 You can get an installer for anaconda \href{https://www.anaconda.com/distribution/#download-section}{here}.
 Anaconda can be installed without Admin privileges if you only install it for your user.
 Install the full anaconda distribution not miniconda.
-
-
-
 
 
 \subsection{Your Development Environment}
@@ -146,7 +145,8 @@ The main purpose of such a virtual environment is to keep you system clean.
 
 When working with Python it is very likely that you want to use third party libraries
 that are not part of your main Python installation.
-You can install libraries through packages with pythons package installer $pip$.
+The easiest way to install new libraries is through packages stored in public repositories like pypi.
+You can use Pythons package installer $pip$ to install these packages.
 
 \begin{lstlisting}
 python -m pip install pandas
@@ -154,7 +154,8 @@ python -m pip install pandas
 pip install pandas
 \end{lstlisting}
 
-This will install the libraries into the system installation and you might need super user rights.
+This will install the libraries into the systems installation of Python and
+you might need super user rights.
 Another problem is that this will clutter up your system library over time and might cause
 dependency issues.
 A better alternative is to install packages separately into your users home folder.
@@ -169,24 +170,35 @@ You won't need super user rights to do this but if you start working with severa
 this might still cause problems.
 By default, all your Python code will import libraries from either the system location
 or your home folder location.
-If you have several Python projects, some might be dependent on different versions of the
-same package.
-But in your system and home installation can only ever exist one version of a package.\footnote{
+The more Python projects you create the likelier it gets that your projects depend on
+different versions of the same package.
+But there can only ever exist one version of a package in your system and home installation.\footnote{
     A slightly more concise description of the problem is in the introduction of this tutorial:
     \href{https://docs.python.org/3/tutorial/venv.html}{Virtual Environments and Packages}
 }
 
-You can isolate your projects python environment through virtual environments.
-A tool to better separate your projects environment from the system is the virtual environment.
+To solve this issue of conflicting dependencies, you can isolate your projects python environment.
+The easiest way to do this is through Python virtual environments.
 From within your project directory you can initialize a virtual environment via:
 
 \begin{lstlisting}
-# First install virtualenv
+# First install virtualenv if it is not installed.
 python -m pip install virtualenv
 # Then you can use it.
 python -m virtualenv .
+# Enter the virtual environment in the shell
+source bin/activate
 \end{lstlisting}
 
+Alternatively you can use $pipenv$, which build upon virtual environments, keeps track
+of the versions of your installed packages and manages virtual environments at
+a central location.
+
+\begin{lstlisting}
+python -m pipenv install pandas #Or pipenv install pandas
+# Enter the virtual environment
+pipenv shell
+\end{lstlisting}
 
 \subsubsection{VSCode Setup}
 
@@ -243,17 +255,6 @@ But it is a piece of shared knowledge between many Python programmers.
 Adhering to and knowing the conventions makes it easier for you to understand
 the code of others and your own code after you did not look at it for a long time.
 
-\subsection{Installing and tracking packages}
-
-%TODO
-
-\begin{lstlisting}
-pip install --user pipenv
-\end{lstlisting}
-
-\begin{lstlisting}
-pipenv install pandas
-\end{lstlisting}
 
 \pagebreak
 \section{Python compared to other languages}
