@@ -90,9 +90,24 @@
 
 \section{Getting Started}
 
+Note: If your system has a Python2 installation the standard call to $python$
+
+\begin{lstlisting}
+    # eg.
+    python -m pip install pandas
+\end{lstlisting}
+
+will likely use Python2.
+In that case you should replace all calls to $python$ in this script with python3
+
+\begin{lstlisting}
+    python3 -m pip install pandas
+    # or depending on the specific version
+    python3.8 -m pip install pandas
+\end{lstlisting}
+
 \subsection{Installing Python}
 
-You should use
 
 \subsubsection{Linux}\label{linux_python_install}
 Many linux systems have Python already installed.
