@@ -1,3 +1,4 @@
+import math
 from sys import argv
 from typing import Set
 
@@ -5,12 +6,17 @@ from typing import Set
 def sieve_of_eratosthenes(max_number: int) -> Set[int]:
     non_primes = set()
     primes = set()
-    for number in list(range(2, max_number + 1)):
+    smallest_prime_factor = int(math.sqrt(max_number))
+    for number in range(2, smallest_prime_factor + 1):
         if number in non_primes:
             continue
 
         primes.add(number)
         non_primes.update(gather_multiples(number, max_number))
+
+    for number in range(smallest_prime_factor, max_number + 1):
+        if number not in non_primes:
+            primes.add(number)
 
     return primes
 
