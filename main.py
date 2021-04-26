@@ -136,11 +136,13 @@ print(class_ages_again)
 names_set = {"Jeff", "Cara", "Jeff", "Ben"}
 names_set
 
-"Jeff" in names_set
+if "Jeff" in names_set:
+    print('"Jeff" is in names_set')
 
 number_set = {1, 2, 3, 4}
 
-4 in number_set
+if 4 in number_set:
+    print("4 is in number_set")
 
 # %% Tuples
 
