@@ -195,7 +195,7 @@ instance.class_method()
 instance.static_method()
 
 
-# %%
+# %% Objects
 
 
 class Range:
