@@ -11,7 +11,7 @@ from typing import List, Sized
 from IPython.display import Markdown
 from pandas.api.types import CategoricalDtype
 
-from .weighted_average import weighted_avg_and_std
+from .weighted_average import weighted_statistics
 
 #%%
 
@@ -69,7 +69,7 @@ income_grouped_by = income_table[["syear", "income", "weight"]].groupby(["syear"
 # Calculate weighted average
 aggregated = income_grouped_by.apply(
     lambda data_frame: pandas.Series(
-        weighted_avg_and_std(
+        weighted_statistics(
             data_frame[["income"]].to_numpy(), weights=data_frame["weight"]
         ),
         ["mean_income", "sd", "N", "error"],

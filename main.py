@@ -1,24 +1,24 @@
 # Python course example snippets
 # %% Yous should always declare your imports at the top of a module
 import math
-from typing import Iterable, List
+from typing import Generator, Iterable, List
 
 
 # %% Python syntax: blocks
 
+
 for number in range(1, 11):
     print(number)
-
-number = 1
-number.bit_length()
 
 
 # %% A statement to declare a variable
 
+test = 1
+
 
 # %% An expression made up of two expressions.
 
-"a" + "{letter}c".format(letter="b")
+test_two = "a" + "{letter}c".format(letter="b")
 
 
 # %% A statement with an expression.
@@ -26,8 +26,9 @@ formatted_number = "{0:05d}".format(1)
 print(formatted_number)
 
 # %% Decision making: if, elif, else
-a_variable = int(input())
-if a_variable == 1:
+a_variable = []
+
+if a_variable:
     print("That is a one.")
 elif a_variable == 2:
     print("That is a two.")
@@ -109,7 +110,7 @@ print(numbers_to_ten[1:10:2])
 # %% List comprehension
 
 print([number for number in range(1, 10) if number % 2 == 0])
-print([words for words in "Here are some Words".split()])
+some_words = [words for words in "Here are some Words".split()]
 # %% Dictionaries
 
 class_age = {"Anne": 27, "John": 25, "Marie": 24, "Dan": 30}
@@ -134,6 +135,13 @@ print(class_ages_again)
 
 names_set = {"Jeff", "Cara", "Jeff", "Ben"}
 names_set
+
+"Jeff" in names_set
+
+number_set = {1, 2, 3, 4}
+
+4 in number_set
+
 # %% Tuples
 
 names_tuple = ("Jeff", "Cara", "Ben")
@@ -156,8 +164,59 @@ def remove_even(numbers: Iterable[int]) -> List[int]:
 print(remove_even([1, 2, 3, 4]))
 print(remove_even(range(1, 20)))
 
+# %% Generators
+
+
+def range_generator(start: int, stop: int, step: int = 1) -> Generator[int, None, None]:
+    while start < stop:
+        yield start
+        start = start + step
+
+
+list(range_generator(1, 10))
+
+# %% Classes
+
+
+class SimpleClass(object):
+    ATTRIBUTE = "World"
+
+    @classmethod
+    def class_method(cls) -> None:
+        print(f"Hellow {cls.ATTRIBUTE}")
+
+    @staticmethod
+    def static_method() -> None:
+        print("Hello someone.")
+
+
+instance = SimpleClass()
+instance.class_method()
+instance.static_method()
+
+
 # %%
 
-remove_even(["a"])
+
+class Range:
+    start: int
+    stop: int
+    step: int
+
+    def __init__(self, start: int, stop: int, step: int):
+        self.start, self.stop, self.step = (start, stop, step)
+
+    def generator(self) -> Generator[int, None, None]:
+        while self.start < self.stop:
+            yield self.start
+            start = self.start + self.step
+
+    def range_list(self) -> List[int]:
+        return list(range(self.start, self.stop, self.step))
+
+
+range_instance = Range(1, 20, 2)
+print(range_instance.generator())
+range_instance.range_list()
 
 # %%

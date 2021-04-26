@@ -22,8 +22,6 @@ def circumference(radius: float) -> float:
 def draw_wind_rose() -> Dict[str, float]:
     points = 8
     inside_angle = 360 / points
-    left_most_point: Tuple[float, float] = (0.0, 0.0)
-    right_most_point: Tuple[float, float] = (0.0, 0.0)
     outer_points = list()
     for line in range(points + 1):
         turtle.forward(100 * SIZE_MODIFIER)

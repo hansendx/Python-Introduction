@@ -3,11 +3,11 @@ class Car:
     horn_sound: str = "Honk"
     _speed: float = 0.0
 
-    def __init__(self, horn_sound: str = None) -> object:
+    def __init__(self, horn_sound: str = ""):
         if horn_sound:
             self.horn_sound = horn_sound
 
-    def accelerate(self, kmh: float = 0.0):
+    def accelerate(self, kmh: float = 0.0) -> None:
         self._speed = self._speed + kmh
 
     def brake(self, target_kmh: float = 0.0) -> None:
