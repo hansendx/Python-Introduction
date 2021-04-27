@@ -2,6 +2,7 @@
 # %% Yous should always declare your imports at the top of a module
 import math
 from typing import Generator, Iterable, List
+from datetime import datetime, timedelta
 
 
 # %% Python syntax: blocks
@@ -175,7 +176,9 @@ def range_generator(start: int, stop: int, step: int = 1) -> Generator[int, None
         start = start + step
 
 
-list(range_generator(1, 10))
+gen = range_generator(1, 10)
+print(next(gen))
+print(next(gen))
 
 # %% Classes
 
@@ -199,6 +202,51 @@ instance.static_method()
 
 # %% Objects
 
+# class_age = {"Anne": 27, "John": 25, "Marie": 24, "Dan": 30}
+
+
+class OnlineClass:
+    name: str
+    dates: List[datetime]
+
+    def __init__(self, name: str, date: str, day_frequency: int, occurences: int) -> None:
+        self.name = name
+
+        self.dates = [datetime.strptime(date, "%d/%m/%y")]
+
+        for time in range(1, occurences + 1):
+            self.dates.append(self.dates[-1] + timedelta(days=day_frequency))
+
+
+class Pupil:
+    name: str
+    age: int
+    classes: List[OnlineClass]
+
+    def __init__(self, name, age, _class) -> None:
+        self.name = name
+        self.age = age
+        self.classes = [_class]
+
+    def add_class(self, _class):
+        self.classes.append(_class)
+
+    def schedule(self):
+        for _class in self.classes:
+            print(_class.dates)
+
+
+a_class = OnlineClass("english", "21/3/21", 7, 3)
+b_class = OnlineClass("math", "22/3/21", 7, 4)
+a_pupil = Pupil("Jeff", 15, a_class)
+
+a_pupil.add_class(b_class)
+
+a_pupil.schedule()
+
+
+# %% Objects 2
+
 
 class Range:
     start: int
@@ -220,5 +268,39 @@ class Range:
 range_instance = Range(1, 20, 2)
 print(range_instance.generator())
 range_instance.range_list()
+
+# %% CSV
+
+from csv import DictWriter, DictReader
+
+test_rows = [{"a": 1, "b": 2}, {"a": 40, "b": 34}]
+
+with open("test.csv", "w") as test_file:
+    test_writer = DictWriter(test_file, fieldnames=["a", "b"])
+    test_writer.writeheader()
+    for row in test_rows:
+        test_writer.writerow(row)
+
+# %%
+
+
+def a(x: int, y: int):
+    x + y
+
+
+def b():
+    a(1, "a")
+
+
+from unittest import TestCase
+
+
+class TestTest(TestCase):
+    def test_a(self):
+        self.assertEqual(2, a(1, 1))
+
+
+b()
+
 
 # %%

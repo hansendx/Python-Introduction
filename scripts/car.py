@@ -19,7 +19,7 @@ class Car:
 
     @property
     def speed(self) -> str:
-        return f"{self._speed} km/h"
+        return f"{self._speed} km"
 
 
 test_car = Car()
