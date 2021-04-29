@@ -4,6 +4,8 @@ import math
 from typing import Generator, Iterable, List
 from datetime import datetime, timedelta
 
+TEST = 1
+
 
 # %% Python syntax: blocks
 
@@ -273,6 +275,10 @@ range_instance.range_list()
 
 from csv import DictWriter, DictReader
 
+from pathlib import Path
+
+csv_file_path = Path("./test.csv")
+
 test_rows = [{"a": 1, "b": 2}, {"a": 40, "b": 34}]
 
 with open("test.csv", "w") as test_file:
@@ -284,12 +290,34 @@ with open("test.csv", "w") as test_file:
 # %%
 
 
-def a(x: int, y: int):
-    x + y
+def test():
+    row = list()
+
+    def test_two():
+        row = None
+        row.append(1)
 
 
-def b():
-    a(1, "a")
+test_rows = []
+
+with open(csv_file_path, "r") as test_file:
+    reader = DictReader(test_file)
+    row = None
+    for row in reader:
+        test_rows.append(row)
+
+print(test_rows)
+
+
+import json
+
+json_file_path = Path("./test.json")
+
+with open(json_file_path, "w") as test_file:
+    json.dump({"a": 1}, test_file)
+
+
+# %%
 
 
 from unittest import TestCase
