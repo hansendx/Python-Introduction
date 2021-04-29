@@ -5,14 +5,14 @@ import numpy
 # %%
 # Building a DataFrame "by hand"
 
-names = ["Hans", "Ina", "Gerd", "Lena", "Nic", "Noah"]
+names = ["Robert", "Ina", "Gerd", "Lena", "Nic", "Noah"]
 sex = ["m", "w", "m", "w", "m", "m"]
 einkommen = [750, numpy.nan, 1500, None, 1200, 1000]
 schule = ["keinen", "Hauptschule", "Gymnasium", "Realschule", "Realschule", "Hauptschule"]
 programmierkenntnisse = ["keine", "sehr gute", "gute", "gute", "sehr gute", "keine"]
 people = pandas.DataFrame(
     {
-        "names": names,
+        "name": names,
         "einkommen": einkommen,
         "schulabschluss": schule,
         "programmierkenntnisse": programmierkenntnisse,
@@ -61,5 +61,23 @@ print(
 # Count occurences of category values.
 
 people["sex"].value_counts()
+
+# %% An incomplete table
+
+people_without_einkommen = people.drop("einkommen", axis=1)
+people_without_einkommen
+
+# %% Another differently incomplete table
+people_without_schulabschluss = people.drop("schulabschluss", axis=1)
+people_without_schulabschluss
+
+# %%
+
+pandas.merge(
+    people_without_einkommen,
+    people_without_schulabschluss,
+    on=["name"],
+    how="inner",
+)
 
 # %%
