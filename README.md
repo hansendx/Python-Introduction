@@ -1,4 +1,30 @@
-# External Resources
+# Documentations
+
+- [Python](https://docs.python.org/3/)
+- [PEP 8 - Style Guide](https://www.python.org/dev/peps/pep-0008/)
+- [PEP 484 - Type Hints](https://www.python.org/dev/peps/pep-0484/)
+- [Jupyter Notebook](https://jupyter-notebook.readthedocs.io/en/stable/)
+- [numpy](https://numpy.org/doc/stable/)
+- [pandas](https://pandas.pydata.org/docs/)
+
+
+# Tools
+
+- [VSCode](https://code.visualstudio.com/docs)
+- [pylint](http://pylint.pycqa.org/en/latest/intro.html)
+- [pylint tutorial](http://pylint.pycqa.org/en/latest/tutorial.html)
+- [Linters in VSCode](https://code.visualstudio.com/docs/python/linting)
+- [mypy - type checking](https://mypy.readthedocs.io/en/stable/introduction.html)
+- [pytest](https://docs.pytest.org/en/6.2.x/)
+- [unittest library](https://docs.python.org/3/library/unittest.html)
+
+
+# Learning Resources
+
+- [realpython - OOP](https://realpython.com/python3-object-oriented-programming/)
+- [realpython - testing](https://realpython.com/python-testing/)
+
+  * Has some free text based tutorials.
 
 - [Codecademy](https://www.codecademy.com/)
 
